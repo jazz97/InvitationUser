@@ -1,0 +1,27 @@
+.row
+  .col-md-6.pull-left
+    .page-title
+      %h3.ch3
+        DB
+        %span.semi-bold Settings
+  .col-md-6
+    = link_to 'Back', "/", :class => "btn btn-warning btn-cons pull-right"
+    = link_to 'New', new_user_path, :class => "btn btn-primary btn-cons pull-right"
+.row-fluid
+  .span12
+    .grid.simple
+      .grid-body
+        .table-responsive
+          %table#example.table.table-hover.table-condensed.table-bordered
+            %thead
+              %tr
+                %th Email
+                %th Actions
+            %tbody
+              - if @users.present?
+                - @users.each do |user|
+                  %tr{:style => "cursor: pointer;",:rel => "tooltip"}
+                    %td
+                      = user.email
+                    %td
+                      = 'zdfdsf'

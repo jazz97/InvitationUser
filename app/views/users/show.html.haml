@@ -1,0 +1,28 @@
+.row
+  .col-md-12    
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title
+          %h3.serv-title
+            Actions
+      .panel-body.serv-body
+        .pull-left
+          = link_to 'Back', users_path, :class => "btn btn-warning btn-cons pull-right on-click-loader"
+          = link_to 'Edit', edit_user_path(@user), :class => "btn btn-success btn-cons pull-right on-click-loader"
+
+.row
+  .col-md-12.block
+    .panel.panel-info
+      .panel-heading
+        %h3.panel-title
+          %h3.serv-title
+            DB Entry Info
+      .panel-body.serv-body
+        %span.bold
+          Email
+        %span.span2.pull-right
+          %span.pull-left
+          %span.pull-right
+            #{@user.email}
+        %br
+        %hr

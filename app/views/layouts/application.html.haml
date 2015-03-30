@@ -1,0 +1,85 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html;charset=UTF-8", "http-equiv" => "content-type"}/
+    %meta{charset: "utf-8"}/
+    %title
+      = AppConfig.app_name
+    %meta{content: "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", name: "viewport"}/
+    %meta{content: "", name: "description"}/
+    %meta{content: "", name: "author"}/
+    = stylesheet_link_tag "application", :media => "all"
+  %body
+    #loading_img.hide
+    .header.navbar.navbar-inverse
+      .navbar-inner
+        .header-seperation
+          %ul#main-menu-toggle-wrapper.nav.pull-left.notifcation-center{style: "display:none"}
+            %li.dropdown
+              %a#main-menu-toggle{href: "#main-menu"}
+                .iconset.top-menu-toggle-white
+          %a{href: "javascript:void(0)"}
+            %img.logo{alt: "", "data-src" => "/assets/logo.png", "data-src-retina" => "/assets/logo2x.png", height: "21", src: "/assets/logo.png", width: "106"}/
+          %ul.nav.pull-right.notifcation-center
+            %li#header_task_bar.dropdown
+              %a.dropdown-toggle.active{"data-toggle" => "", href: "/"}
+                .iconset.top-home
+        .header-quick-nav
+          .pull-left
+            %ul.nav.quick-section
+              %li.quicklinks
+                %a{href: "javascript:void(0)", onclick: "$('body').condensMenu();"}
+                  .iconset.top-menu-toggle-dark
+          .pull-right
+            .chat-toggler.m-r-r-40
+              .user-details
+                .username
+                  %span.badge.badge-important
+                  - unless current_user.nil?
+                    %span.bold #{current_user.email}
+            %ul.nav.quick-section
+              %li.quicklinks
+                %a#user-options.dropdown-toggle.pull-right{"data-toggle" => "dropdown", href: "#"}
+                  .iconset.top-settings-dark
+                %ul.dropdown-menu.pull-right{"aria-labelledby" => "user-options", role: "menu"}
+                  %li
+                    = link_to 'Logout', destroy_user_session_path, :method => :delete
+    .page-container.row-fluid
+      #main-menu.page-sidebar
+        #main-menu-wrapper.page-sidebar-wrapper
+          .user-info-wrapper
+            .user-info
+              .greeting Welcome
+              .username
+                - unless current_user.blank?
+                  #{current_user.email}
+          - if current_user.present?        
+            - if current_user.admin?
+              %ul.nav.quick-section
+                %li
+                  %a{:href => "/setting_databases", :title => "DB Settings"}
+                    %i.fa.fa-wrench
+                    %span.title DB Settings
+                %li
+                  %a{:href => '/users#index', :title => "Users"}
+                    %i.fa.fa-wrench
+                    %span.title Users
+      .page-content
+        .clearfix
+        .content
+          .breadcrumb
+            - if flash.present?
+              - if flash[:notice]
+                .alert.alert-success
+                  %button.close{"data-dismiss" => "alert"}
+                  %small
+                    = flash[:notice].html_safe
+              - if flash[:alert]
+                .alert.alert-error
+                  %button.close{"data-dismiss" => "alert"}
+                  %small
+                    = flash[:alert].html_safe
+          = yield
+    -# BEGIN JavaScript
+    = javascript_include_tag "application"
+    = csrf_meta_tags

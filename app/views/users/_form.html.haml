@@ -1,0 +1,24 @@
+.grid.simple
+  .grid-body.no-border
+    %br
+    = form_for(@user) do |f|
+      - if @user.errors.any?
+        #error_explanation
+          %ul
+            - @user.errors.full_messages.each do |msg|
+              %li.alert-error
+                = msg
+      .form-group
+        %label.form-label Name
+        .input-with-icon.right
+          %i
+          = f.text_field :email, :class => "form-control", :required => true
+      .form-group
+        .input-with-icon.right
+          .center
+            - if params[:action] != "edit"
+              = button_tag(type: 'submit', class: "btn btn-primary btn-cons on-mpc-submit") do
+                Send Invitation
+            - else
+              = button_tag(type: 'submit', class: "btn btn-success btn-cons on-mpc-submit") do
+                Update  DB Entry

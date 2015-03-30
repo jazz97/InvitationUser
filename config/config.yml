@@ -1,0 +1,10 @@
+production: &prod
+  app_name: InvitableUser
+  app_domain: http://localhost:3000
+ 
+
+development: &dev
+  <<: *prod
+
+test:
+  <<: *dev
