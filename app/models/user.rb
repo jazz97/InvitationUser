@@ -7,4 +7,11 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,:admin
   # attr_accessible :title, :body
+  before_save :admin_approval
+  
+  def admin_approval
+    if self.admin
+      self.approval = true
+    end
+  end
 end
